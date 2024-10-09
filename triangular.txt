@@ -1,0 +1,22 @@
+module triangular(clk,rst,dac);
+input clk,rst;
+output reg[0:7]dac;
+reg[3:0]temp=4'b0000;
+reg[0:8] cntr;
+always @ (posedge clk)
+begin
+temp=temp+1'b1;
+end
+always @ (posedge temp[3])
+begin
+if(rst==0) cntr=9’b000000000;
+else
+begin
+cntr=cntr+1'b1;
+if(cntr[0]==1)
+dac <= cntr[1:8]
+else
+dac <= ~(cntr[1:8]);
+end
+end
+endmodule

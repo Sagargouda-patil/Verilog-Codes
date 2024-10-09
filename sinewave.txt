@@ -1,0 +1,63 @@
+module sinewave(clk,rst,dac);
+input clk,rst;
+output reg[0:7]dac;
+reg[7:0]ce;
+integer i;
+reg[7:0]sine[0:36];
+initial
+begin
+i=0;
+sine[0]=127;
+sine[1]=149;
+sine[2]=170;
+sine[3]=190;
+sine[4]=209;
+sine[5]=224;
+sine[6]=237;
+sine[7]=246;
+sine[8]=252;
+sine[9]=254;
+sine[10]=252;
+sine[11]=246;
+sine[12]=237;
+sine[13]=224;
+sine[14]=209;
+sine[15]=190;
+sine[16]=170;
+sine[17]=149;
+sine[18]=127;
+sine[19]=104;
+sine[20]=83;
+sine[21]=63;
+sine[22]=45;
+sine[23]=29;
+sine[24]=17;
+sine[25]=7;
+sine[26]=2;
+sine[27]=0;
+sine[28]=2;
+sine[29]=7;
+sine[30]=17;
+sine[31]=29;
+sine[32]=45;
+sine[33]=63;
+sine[34]=83;
+sine[35]=104;
+sine[36]=127;
+end
+always @(posedge clk, posedge rst)
+begin
+if(rst)
+ce<=8'b0;
+else
+ce<=ce+1'b1;
+end
+always@(posedge ce[37])
+begin
+dac<=sine[i];
+if(i == 8'd36 )
+i<=8'b0;
+else
+i<=i+1;
+end
+endmodule

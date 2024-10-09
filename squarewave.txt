@@ -1,0 +1,34 @@
+module squarewave(clk,rst,dac);
+input clk,rst;
+output reg[7:0]dac;
+reg[7:0]cntr;
+reg mode= 1'b0;
+always @ (posedge clk,posedge rst)
+begin
+if (rst==0)
+cntr=0;
+else
+begin
+if(mode==0)
+begin
+cntr=cntr+1'b1;
+dac=8'b 11111111;
+if(cntr==8'b 11001000)
+begin
+mode=1;
+cntr=0;
+end
+end
+else
+begin
+cntr=cntr+1'b1;
+dac=8'b00000000;
+if(cntr==8'b11001000)
+begin
+mode=0;
+cntr=0;
+end
+end
+end
+end
+endmodule
